@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../pages/splash_screen.dart';
-import '../pages/onboarding_screen.dart';
-// import '../screens/login_screen.dart';
-// import '../screens/choose_bot_screen.dart';
-// import '../screens/chat_screen.dart';
+import '../pages/splash/splash_screen.dart';
+import '../pages/onboarding/onboarding_screen.dart';
+import '../pages/login/login_screen.dart';
+import '../pages/chat/chat_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -21,24 +20,24 @@ final GoRouter appRouter = GoRouter(
         return const OnboardingScreen();
       },
     ),
-    // GoRoute(
-    //   path: '/login',
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     return const LoginScreen();
-    //   },
-    // ),
+    GoRoute(
+      path: '/login',
+      builder: (BuildContext context, GoRouterState state) {
+        return const LoginScreen();
+      },
+    ),
     // GoRoute(
     //   path: '/choose-bot',
     //   builder: (BuildContext context, GoRouterState state) {
     //     return const ChooseBotScreen();
     //   },
     // ),
-    // GoRoute(
-    //   path: '/chat',
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     final botId = state.uri.queryParameters['bot'] ?? 'friend';
-    //     return ChatScreen(botId: botId);
-    //   },
-    // ),
+    GoRoute(
+      path: '/chat',
+      builder: (BuildContext context, GoRouterState state) {
+        final botId = state.uri.queryParameters['bot'] ?? 'friend';
+        return ChatScreen(botId: botId);
+      },
+    ),
   ],
 );
