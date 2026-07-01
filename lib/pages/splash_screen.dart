@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
 import '../constants/styles.dart';
 import '../constants/image_paths.dart';
@@ -19,18 +21,22 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkOnboardingAndNavigate() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
-    // Timer(const Duration(seconds: 2), () {
-    //   if (mounted) {
-    //     if (hasSeenOnboarding) {
-    //       context.go('/login');
-    //     } else {
-    //       context.go('/onboarding');
-    //     }
-    //   }
-    // });
+    Timer(const Duration(seconds: 2), () {
+      if (mounted) {
+        if (hasSeenOnboarding) {
+          try {
+            context.go('/login');
+          } catch (_) {
+            context.go('/onboarding');
+          }
+        } else {
+          context.go('/onboarding');
+        }
+      }
+    });
   }
 
   @override
