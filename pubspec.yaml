@@ -1,0 +1,82 @@
+name: info_bot
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  go_router: ^14.0.0
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/Inter-Regular.otf
+        - asset: assets/fonts/Inter/Inter-Italic.otf
+          style: italic
+        - asset: assets/fonts/Inter/Inter-Thin.otf
+          weight: 100
+        - asset: assets/fonts/Inter/Inter-ThinItalic.otf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Inter/Inter-ExtraLight.otf
+          weight: 200
+        - asset: assets/fonts/Inter/Inter-ExtraLightItalic.otf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Inter/Inter-Light.otf
+          weight: 300
+        - asset: assets/fonts/Inter/Inter-LightItalic.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Inter/Inter-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Inter/Inter-MediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Inter/Inter-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Inter/Inter-SemiBoldItalic.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Inter/Inter-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Inter/Inter-BoldItalic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Inter/Inter-ExtraBold.otf
+          weight: 800
+        - asset: assets/fonts/Inter/Inter-ExtraBoldItalic.otf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Inter/Inter-Black.otf
+          weight: 900
+        - asset: assets/fonts/Inter/Inter-BlackItalic.otf
+          weight: 900
+          style: italic
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_logo.png"
