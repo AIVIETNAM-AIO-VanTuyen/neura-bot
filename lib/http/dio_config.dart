@@ -1,25 +1,41 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'configs/dio_configs.dart';
+import 'dio_client.dart';
+import 'interceptors/auth_interceptor.dart';
+import 'interceptors/logging_interceptor.dart';
+import 'interceptors/retry_interceptor.dart';
 
 class DioConfig {
-  static Dio getDio() {
-    final dio = Dio();
+  static late final DioClient _dioClient;
 
-    // Lấy BASE_URL từ .env
-    final String? baseUrl = dotenv.env['BASE_URL'];
+  static DioClient get client => _dioClient;
+  static Dio get dio => _dioClient.dio;
 
-    if (baseUrl != null) {
-      dio.options.baseUrl = baseUrl;
-    } else {
-      // Xử lý trường hợp BASE_URL không được định cấu hình
-      // Có thể throw lỗi, log cảnh báo hoặc sử dụng một giá trị mặc định
-      print('Warning: BASE_URL is not set in .env file.');
-      // Ví dụ: dio.options.baseUrl = 'https://api.example.com';
-    }
+  static Future<void> init() async {
+    final String baseUrl = dotenv.env['BASE_URL'] ?? 'https://api.example.com';
 
-    // Thêm các interceptor khác nếu cần
-    // dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    final configs = DioConfigs(
+      baseUrl: baseUrl,
+      receiveTimeout: 10000,
+      connectionTimeout: 10000,
+    );
 
-    return dio;
+    _dioClient = DioClient(dioConfigs: configs);
+
+    final authInterceptor = AuthInterceptor(
+      accessToken: () async {
+        final prefs = await SharedPreferences.getInstance();
+        return prefs.getString('auth_token');
+      },
+    );
+
+    _dioClient.addInterceptors([
+      authInterceptor,
+      LoggingInterceptor(),
+      RetryInterceptor(dio: _dioClient.dio),
+    ]);
   }
 }
